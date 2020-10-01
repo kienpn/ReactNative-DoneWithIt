@@ -1,6 +1,8 @@
 import React from "react";
 import { ImageBackground, StyleSheet, Text, View, Image } from "react-native";
 
+import colors from "../config/colors";
+
 export default function WelcomeScreen(props) {
   return (
     <ImageBackground
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logginButton: {
-    backgroundColor: "#fc5c65",
+    backgroundColor: colors.primary,
     width: "100%",
     height: 70,
   },
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   registerButton: {
-    backgroundColor: "#4ecdc4",
+    backgroundColor: colors.secondary,
     width: "100%",
     height: 70,
   },

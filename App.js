@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
+import ViewImageScreen from "./app/screens/ViewImageScreen";
 import WelcomeScreen from "./app/screens/WelcomeScreen";
 
 export default function App() {
@@ -9,11 +10,7 @@ export default function App() {
 
   return (
     <WelcomeScreen />
-    // <View style={styles.container}>
-    //   <Text>Hello React Native!</Text>
-    //   <Button title="Click here" />
-    //   <StatusBar style="auto" />
-    // </View>
+    // <ViewImageScreen />
   );
 }
 
