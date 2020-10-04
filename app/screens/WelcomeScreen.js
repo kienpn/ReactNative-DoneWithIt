@@ -17,7 +17,7 @@ export default function WelcomeScreen(props) {
         <Text style={styles.tagLine}>Sell What You Don't Need</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        <AppButton title="login" onPress={() => console.log("login tapped")} />
+        <AppButton title="login" onPress={() => alert("login tapped")} />
         <AppButton
           title="register"
           color="secondary"
