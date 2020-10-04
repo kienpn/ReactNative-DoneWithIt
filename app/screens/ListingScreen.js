@@ -8,6 +8,8 @@ import {
   View,
   StatusBar,
 } from "react-native";
+import { TextInput } from "react-native-gesture-handler";
+import AppTextInput from "../components/AppTextInput";
 import Card from "../components/Card";
 import Icon from "../components/Icon";
 
@@ -44,12 +46,11 @@ const listings = [
 ];
 
 export default function ListingScreen() {
-  const handleDelete = (message) => {
-    setMessages(messages.filter((m) => m.id !== message.id));
-  };
+  //   const [firstName, setFirstName] = useState("");
 
   return (
     <Screen style={styles.screen}>
+      <AppTextInput icon="email" placeholder="First Name" />
       <FlatList
         data={listings}
         keyExtractor={(listing) => listing.id.toString()}
