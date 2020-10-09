@@ -3,25 +3,29 @@ import { StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 
-import colors from "../config/colors";
+import defaultStyles from "../config/styles";
 
 export default function AppTextInput({ icon, ...otherProps }) {
   return (
     <View style={styles.container}>
       <View style={styles.icon}>
         {icon && (
-          <MaterialCommunityIcons name={icon} size={20} color={colors.medium} />
+          <MaterialCommunityIcons
+            name={icon}
+            size={20}
+            color={defaultStyles.colors.medium}
+          />
         )}
       </View>
 
-      <TextInput style={styles.textInput} {...otherProps} />
+      <TextInput style={defaultStyles.text} {...otherProps} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.gray300,
+    backgroundColor: defaultStyles.colors.gray300,
     borderRadius: 25,
     flexDirection: "row",
     width: "100%",
@@ -31,10 +35,5 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
     justifyContent: "center",
-  },
-  textInput: {
-    fontSize: 18,
-    fontFamily: Platform.OS === "android" ? "Roboto" : "Avenir",
-    color: colors.dark,
   },
 });

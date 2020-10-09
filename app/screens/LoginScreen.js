@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { ImageBackground, StyleSheet, Text, View, Image } from "react-native";
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Switch,
+} from "react-native";
 import { Formik } from "formik";
 
 import colors from "../config/colors";
@@ -8,8 +15,17 @@ import AppButton from "../components/AppButton";
 import Screen from "../components/Screen";
 import AppTextInput from "../components/AppTextInput";
 import { TextInput } from "react-native-gesture-handler";
+import AppPicker from "../components/AppPicker";
 
 export default function LoginScreen(props) {
+  const categories = [
+    { label: "Furniture", value: 1 },
+    { label: "Clothing", value: 2 },
+    { label: "Cameras", value: 3 },
+  ];
+
+  const [category, setCategory] = useState();
+
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo-red.png")} />
@@ -39,11 +55,16 @@ export default function LoginScreen(props) {
               textContentType="emailAddress"
             />
             <AppButton title="Login" onPress={handleSubmit} />
+            <AppPicker
+              icon="apps"
+              items={categories}
+              onSelectItem={(item) => setCategory(item)}
+              placeholder="Category"
+              selectedItem={category}
+            />
           </>
         )}
       </Formik>
-
-      <TextInput onChangeText={(text) => setEmail(text)} />
     </Screen>
   );
 }
