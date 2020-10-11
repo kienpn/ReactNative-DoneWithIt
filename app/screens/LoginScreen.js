@@ -7,20 +7,11 @@ import {
   Image,
   Switch,
 } from "react-native";
-import { Formik } from "formik";
 import * as Yup from "yup";
 
-import colors from "../config/colors";
-import AppText from "../components/AppText";
-import AppButton from "../components/AppButton";
-import Screen from "../components/Screen";
-import AppTextInput from "../components/AppTextInput";
-import { TextInput } from "react-native-gesture-handler";
 import AppPicker from "../components/AppPicker";
-import ErrorMessage from "../components/ErrorMessage";
-import AppFormField from "../components/AppFormField";
-import SubmitButton from "../components/SubmitButton";
-import AppForm from "../components/AppForm";
+import Screen from "../components/Screen";
+import { AppForm, AppFormField, SubmitButton } from "../components/forms";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -65,13 +56,6 @@ export default function LoginScreen(props) {
         />
 
         <SubmitButton title="Login" />
-        <AppPicker
-          icon="apps"
-          items={categories}
-          onSelectItem={(item) => setCategory(item)}
-          placeholder="Category"
-          selectedItem={category}
-        />
       </AppForm>
     </Screen>
   );
