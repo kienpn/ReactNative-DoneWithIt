@@ -27,8 +27,14 @@ export default function ListItem({
           {IconComponent}
           {image && <Image source={image} style={styles.image} />}
           <View style={styles.detailsContainer}>
-            <AppText style={styles.title}>{title}</AppText>
-            {subtitle && <AppText style={styles.subtitle}>{subtitle}</AppText>}
+            <AppText numberOfLines={1} style={styles.title}>
+              {title}
+            </AppText>
+            {subtitle && (
+              <AppText numberOfLines={2} style={styles.subtitle}>
+                {subtitle}
+              </AppText>
+            )}
           </View>
         </View>
       </TouchableHighlight>

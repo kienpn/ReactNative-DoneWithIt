@@ -75,12 +75,17 @@ export default function ListingEditScreen(props) {
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        <FormField maxLength={255} name="title" placeholder="Title" />
+        <FormField
+          maxLength={255}
+          name="title"
+          placeholder="Title                                               "
+        />
         <FormField
           keyboardType="numeric"
           maxLength={8}
           name="price"
-          placeholder="Price"
+          placeholder="Price                                               "
+          width={120}
         />
 
         <Picker
@@ -89,13 +94,14 @@ export default function ListingEditScreen(props) {
           numberOfColumns={3}
           PickerItemComponent={CategoryPickerItem}
           placeholder="Category"
+          width="50%"
         />
         <FormField
           maxLength={255}
-          multiLine
+          multiline
           name="description"
           numberOfLines={3}
-          placeholder="Description"
+          placeholder="Description                                               "
         />
 
         <SubmitButton title="Post" />

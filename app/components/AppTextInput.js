@@ -5,9 +5,9 @@ import { TextInput } from "react-native-gesture-handler";
 
 import defaultStyles from "../config/styles";
 
-export default function AppTextInput({ icon, ...otherProps }) {
+export default function AppTextInput({ icon, width = "100%", ...otherProps }) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width }]}>
       <View style={styles.icon}>
         {icon && (
           <MaterialCommunityIcons

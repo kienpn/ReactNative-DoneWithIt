@@ -32,7 +32,7 @@ const initialMessages = [
   },
   {
     id: 3,
-    title: "Pellentesque ",
+    title: "Pellentesque",
     subtitle:
       "Etiam at libero viverra dui ultrices iaculis. Nulla non vulputate tortor. Sed lectus neque, luctus non finibus non, dictum et ex. Vivamus varius urna libero, vel suscipit justo ultrices tempus. ",
     image: require("../assets/jacket.jpg"),

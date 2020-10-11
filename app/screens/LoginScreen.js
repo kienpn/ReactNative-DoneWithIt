@@ -42,7 +42,7 @@ export default function LoginScreen(props) {
           icon="email"
           keyboardType="email-address"
           name="email"
-          placeholder="Email"
+          placeholder="Email                                               "
           textContentType="emailAddress "
         />
         <AppFormField
@@ -50,7 +50,7 @@ export default function LoginScreen(props) {
           autoCorrect={false}
           icon="lock"
           name="password"
-          placeholder="Password"
+          placeholder="Password                                               "
           secureTextEntry
           textContentType="password"
         />
