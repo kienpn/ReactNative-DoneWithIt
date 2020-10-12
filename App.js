@@ -18,8 +18,8 @@ export default function App() {
     // <ListingEditScreen />
     // <LoginScreen />
     // <ListingScreen />
-    // <AccountScreen />
-    <MessagesScreen />
+    <AccountScreen />
+    // <MessagesScreen />
     // <ListingDetailsScreen />
     // <WelcomeScreen />
     // <ViewImageScreen />
