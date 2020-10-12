@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   Switch,
 } from "react-native";
 import * as Yup from "yup";
+import * as ImagePicker from "expo-image-picker";
 
 import AppPicker from "../components/AppPicker";
 import Screen from "../components/Screen";
@@ -18,6 +19,7 @@ import {
   SubmitButton,
 } from "../components/forms";
 import CategoryPickerItem from "../components/CategoryPickerItem";
+import AppButton from "../components/AppButton";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -60,11 +62,21 @@ const categories = [
 
 export default function ListingEditScreen(props) {
   const [category, setCategory] = useState();
+  const [imageUri, setImageUri] = useState();
+
+  const selectImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync();
+      if (!result.cancelled) {
+        setImageUri(result.uri);
+      }
+    } catch (error) {
+      console.log("Error reading an image", error);
+    }
+  };
 
   return (
     <Screen style={styles.container}>
-      <Image style={styles.logo} source={require("../assets/logo-red.png")} />
-
       <AppForm
         initialValues={{
           title: "",
@@ -75,6 +87,9 @@ export default function ListingEditScreen(props) {
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
+        <AppButton title="Select Image" onPress={selectImage} />
+        <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />
+
         <FormField
           maxLength={255}
           name="title"
