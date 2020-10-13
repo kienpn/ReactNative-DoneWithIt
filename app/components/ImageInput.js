@@ -1,33 +1,47 @@
-import React, { useState } from "react";
-import { Alert, Image, StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import {
+  Alert,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 
 import defaultStyles from "../config/styles";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
-export default function ImageInput() {
-  const [imageUri, setImageUri] = useState();
+export default function ImageInput({ imageUri = null, onChangeImage }) {
+  const requestPermission = async () => {
+    const { granted } = await ImagePicker.requestCameraRollPermissionsAsync();
+    if (!granted) {
+      alert("You need to enable permission to access the library.");
+    }
+  };
 
-  const deleteImage = () => {
-    Alert.alert("Confirm", "Delete Image?", [
-      {
-        text: "Yes",
-        onPress: () => setImageUri(null),
-        style: "default",
-      },
-      {
-        text: "No",
-        style: "cancel",
-      },
-    ]);
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
+  const handlePress = () => {
+    if (!imageUri) {
+      selectImage();
+    } else
+      Alert.alert("Delete", "Are you sure you want to delete this image?", [
+        { text: "Yes", onPress: () => onChangeImage(null) },
+        { text: "No" },
+      ]);
   };
 
   const selectImage = async () => {
     try {
-      const result = await ImagePicker.launchImageLibraryAsync();
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 0.5,
+      });
       if (!result.cancelled) {
-        setImageUri(result.uri);
+        onChangeImage(result.uri);
       }
     } catch (error) {
       console.log("Error reading an image", error);
@@ -35,42 +49,54 @@ export default function ImageInput() {
   };
 
   return (
-    <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={deleteImage}>
+    <TouchableWithoutFeedback onPress={handlePress}>
+      <View style={styles.container}>
         {imageUri && <Image style={styles.image} source={{ uri: imageUri }} />}
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback onPress={selectImage}>
-        <View style={styles.button}>
-          <MaterialCommunityIcons
-            name="camera"
-            size={60}
-            color={defaultStyles.colors.medium}
-          />
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
+        {!imageUri && (
+          <View style={styles.button}>
+            <MaterialCommunityIcons
+              name="camera"
+              size={40}
+              color={defaultStyles.colors.medium}
+            />
+          </View>
+        )}
+      </View>
+    </TouchableWithoutFeedback>
+
+    // { <TouchableWithoutFeedback onPress={deleteImage}>
+    //   {imageUri && <Image style={styles.image} source={{ uri: imageUri }} />}
+    // </TouchableWithoutFeedback>
+    // <TouchableWithoutFeedback onPress={selectImage}>
+    //   <View style={styles.button}>
+    //     <MaterialCommunityIcons
+    //       name="camera"
+    //       size={60}
+    //       color={defaultStyles.colors.medium}
+    //     />
+    //   </View>
+    // </TouchableWithoutFeedback> }
   );
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: defaultStyles.colors.light,
-    borderRadius: 20,
-    height: 120,
-    width: 120,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   container: {
     alignItems: "center",
-
-    flexDirection: "row",
-    height: 120,
+    backgroundColor: defaultStyles.colors.light,
+    borderRadius: 15,
+    height: 100,
+    justifyContent: "center",
+    overflow: "hidden",
+    width: 100,
   },
+  // container: {
+  //   alignItems: "center",
+
+  //   flexDirection: "row",
+  //   height: 120,
+  // },
   image: {
-    borderRadius: 20,
-    height: 120,
-    width: 120,
-    marginRight: 10,
+    height: "100%",
+    width: "100%",
   },
 });
