@@ -23,7 +23,7 @@ import ImageInputList from "../components/ImageInputList";
 import FormImagePicker from "../components/forms/FormImagePicker";
 
 const validationSchema = Yup.object().shape({
-  imageList: Yup.object().required().min(1).label("Image List"),
+  images: Yup.aray().min(1, "Please select at least 1 image."),
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.string().required().min(1).max(10000).label("Price"),
   description: Yup.string().label("Description"),
@@ -65,13 +65,13 @@ const categories = [
 export default function ListingEditScreen(props) {
   const [imageUris, setImageUris] = useState([]);
 
-  const handleAdd = (uri) => {
-    setImageUris([...imageUris, uri]);
-  };
+  // const handleAdd = (uri) => {
+  //   setImageUris([...imageUris, uri]);
+  // };
 
-  const handleRemove = (uri) => {
-    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
-  };
+  // const handleRemove = (uri) => {
+  //   setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
+  // };
 
   return (
     <Screen style={styles.container}>
@@ -81,16 +81,12 @@ export default function ListingEditScreen(props) {
           price: "",
           description: "",
           category: null,
+          images: [],
         }}
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        <FormImagePicker
-          imageUris={imageUris}
-          name="imageList"
-          handleAdd={handleAdd}
-          handleRemove={handleRemove}
-        />
+        <FormImagePicker name="images" />
 
         <FormField
           maxLength={255}
