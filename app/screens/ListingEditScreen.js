@@ -20,8 +20,10 @@ import {
 import CategoryPickerItem from "../components/CategoryPickerItem";
 import AppButton from "../components/AppButton";
 import ImageInputList from "../components/ImageInputList";
+import FormImagePicker from "../components/forms/FormImagePicker";
 
 const validationSchema = Yup.object().shape({
+  imageList: Yup.object().required().min(1).label("Image List"),
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.string().required().min(1).max(10000).label("Price"),
   description: Yup.string().label("Description"),
@@ -83,10 +85,11 @@ export default function ListingEditScreen(props) {
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        <ImageInputList
+        <FormImagePicker
           imageUris={imageUris}
-          onAddImage={(uri) => handleAdd(uri)}
-          onRemoveImage={handleRemove}
+          name="imageList"
+          handleAdd={handleAdd}
+          handleRemove={handleRemove}
         />
 
         <FormField
