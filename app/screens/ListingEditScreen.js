@@ -10,7 +10,6 @@ import {
 import * as Yup from "yup";
 import * as ImagePicker from "expo-image-picker";
 
-import AppPicker from "../components/AppPicker";
 import Screen from "../components/Screen";
 import {
   AppForm,
@@ -20,6 +19,7 @@ import {
 } from "../components/forms";
 import CategoryPickerItem from "../components/CategoryPickerItem";
 import AppButton from "../components/AppButton";
+import ImageInputList from "../components/ImageInputList";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label("Title"),
@@ -61,18 +61,14 @@ const categories = [
 ];
 
 export default function ListingEditScreen(props) {
-  const [category, setCategory] = useState();
-  const [imageUri, setImageUri] = useState();
+  const [imageUris, setImageUris] = useState([]);
 
-  const selectImage = async () => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync();
-      if (!result.cancelled) {
-        setImageUri(result.uri);
-      }
-    } catch (error) {
-      console.log("Error reading an image", error);
-    }
+  const handleAdd = (uri) => {
+    setImageUris([...imageUris, uri]);
+  };
+
+  const handleRemove = (uri) => {
+    setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
   };
 
   return (
@@ -87,8 +83,11 @@ export default function ListingEditScreen(props) {
         onSubmit={(values) => console.log(values)}
         validationSchema={validationSchema}
       >
-        <AppButton title="Select Image" onPress={selectImage} />
-        <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />
+        <ImageInputList
+          imageUris={imageUris}
+          onAddImage={(uri) => handleAdd(uri)}
+          onRemoveImage={handleRemove}
+        />
 
         <FormField
           maxLength={255}

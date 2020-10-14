@@ -29,14 +29,14 @@ export default function App() {
   };
 
   return (
-    <Screen style={styles.container}>
-      <ImageInputList
-        imageUris={imageUris}
-        onAddImage={(uri) => handleAdd(uri)}
-        onRemoveImage={handleRemove}
-      />
-    </Screen>
-    // <ListingEditScreen />
+    // <Screen style={styles.container}>
+    //   <ImageInputList
+    //     imageUris={imageUris}
+    //     onAddImage={(uri) => handleAdd(uri)}
+    //     onRemoveImage={handleRemove}
+    //   />
+    // </Screen>
+    <ListingEditScreen />
     // <LoginScreen />
     // <ListingScreen />
     // <AccountScreen />
