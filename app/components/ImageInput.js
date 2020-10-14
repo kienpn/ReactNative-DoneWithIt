@@ -63,38 +63,21 @@ export default function ImageInput({ imageUri = null, onChangeImage }) {
         )}
       </View>
     </TouchableWithoutFeedback>
-
-    // { <TouchableWithoutFeedback onPress={deleteImage}>
-    //   {imageUri && <Image style={styles.image} source={{ uri: imageUri }} />}
-    // </TouchableWithoutFeedback>
-    // <TouchableWithoutFeedback onPress={selectImage}>
-    //   <View style={styles.button}>
-    //     <MaterialCommunityIcons
-    //       name="camera"
-    //       size={60}
-    //       color={defaultStyles.colors.medium}
-    //     />
-    //   </View>
-    // </TouchableWithoutFeedback> }
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    backgroundColor: defaultStyles.colors.light,
+    backgroundColor: defaultStyles.colors.gray300,
     borderRadius: 15,
     height: 100,
     justifyContent: "center",
+    marginVertical: 10,
     overflow: "hidden",
     width: 100,
   },
-  // container: {
-  //   alignItems: "center",
 
-  //   flexDirection: "row",
-  //   height: 120,
-  // },
   image: {
     height: "100%",
     width: "100%",

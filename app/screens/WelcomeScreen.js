@@ -5,7 +5,7 @@ import colors from "../config/colors";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 
-export default function WelcomeScreen(props) {
+export default function WelcomeScreen({ navigation }) {
   return (
     <ImageBackground
       style={styles.background}
@@ -17,11 +17,11 @@ export default function WelcomeScreen(props) {
         <Text style={styles.tagLine}>Sell What You Don't Need</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        <AppButton title="login" onPress={() => alert("login tapped")} />
+        <AppButton title="login" onPress={() => navigation.navigate("Login")} />
         <AppButton
           title="register"
           color="secondary"
-          onPress={() => console.log("register tapped")}
+          onPress={() => navigation.navigate("Register")}
         />
       </View>
     </ImageBackground>

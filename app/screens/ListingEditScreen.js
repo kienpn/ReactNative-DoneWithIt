@@ -8,22 +8,19 @@ import {
   Switch,
 } from "react-native";
 import * as Yup from "yup";
-import * as ImagePicker from "expo-image-picker";
 
 import Screen from "../components/Screen";
 import {
   AppForm,
   AppFormField as FormField,
   AppFormPicker as Picker,
+  FormImagePicker,
   SubmitButton,
 } from "../components/forms";
 import CategoryPickerItem from "../components/CategoryPickerItem";
-import AppButton from "../components/AppButton";
-import ImageInputList from "../components/ImageInputList";
-import FormImagePicker from "../components/forms/FormImagePicker";
 
 const validationSchema = Yup.object().shape({
-  images: Yup.aray().min(1, "Please select at least 1 image."),
+  images: Yup.array().min(1, "Please select at least 1 image."),
   title: Yup.string().required().min(1).label("Title"),
   price: Yup.string().required().min(1).max(10000).label("Price"),
   description: Yup.string().label("Description"),
@@ -63,16 +60,6 @@ const categories = [
 ];
 
 export default function ListingEditScreen(props) {
-  const [imageUris, setImageUris] = useState([]);
-
-  // const handleAdd = (uri) => {
-  //   setImageUris([...imageUris, uri]);
-  // };
-
-  // const handleRemove = (uri) => {
-  //   setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
-  // };
-
   return (
     <Screen style={styles.container}>
       <AppForm

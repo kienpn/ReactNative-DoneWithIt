@@ -45,12 +45,11 @@ const listings = [
   },
 ];
 
-export default function ListingScreen() {
+export default function ListingScreen({ navigation }) {
   //   const [firstName, setFirstName] = useState("");
 
   return (
     <Screen style={styles.screen}>
-      <AppTextInput icon="email" placeholder="First Name" />
       <FlatList
         data={listings}
         keyExtractor={(listing) => listing.id.toString()}
@@ -60,6 +59,7 @@ export default function ListingScreen() {
             title={item.title}
             subtitle={"$" + item.price}
             image={item.image}
+            onPress={() => navigation.navigate("ListingDetails", item)}
           />
         )}
       />
