@@ -14,6 +14,7 @@ import ListItem from "../components/ListItem";
 import ListItemSeparator from "../components/ListItemSeparator";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
+import routes from "../navigation/routes";
 
 const menuItems = [
   {
@@ -29,10 +30,11 @@ const menuItems = [
       name: "email",
       backgroundColor: colors.secondary,
     },
+    targetScreen: "Messages",
   },
 ];
 
-export default function AccountScreen() {
+export default function AccountScreen({ navigation }) {
   const handleDelete = (message) => {
     setMessages(messages.filter((m) => m.id !== message.id));
   };
@@ -53,8 +55,9 @@ export default function AccountScreen() {
           ItemSeparatorComponent={ListItemSeparator}
           renderItem={({ item }) => (
             <ListItem
-              title={item.title}
+              onPress={() => navigation.navigate(item.targetScreen)}
               subtitle={item.subtitle}
+              title={item.title}
               IconComponent={
                 <Icon
                   name={item.icon.name}
