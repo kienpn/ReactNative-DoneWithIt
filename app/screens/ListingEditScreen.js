@@ -8,6 +8,7 @@ import {
   Switch,
 } from "react-native";
 import * as Yup from "yup";
+import * as Location from "expo-location";
 
 import Screen from "../components/Screen";
 import {
@@ -18,6 +19,8 @@ import {
   SubmitButton,
 } from "../components/forms";
 import CategoryPickerItem from "../components/CategoryPickerItem";
+import useLocation from "../hooks/useLocation";
+import listingsApi from "../api/listings";
 
 const validationSchema = Yup.object().shape({
   images: Yup.array().min(1, "Please select at least 1 image."),
@@ -60,6 +63,14 @@ const categories = [
 ];
 
 export default function ListingEditScreen(props) {
+  const location = useLocation();
+
+  const handleSubmit = async (listing) => {
+    const result = await listingsApi.addListing({ ...listing, location });
+    if (!result.ok) return alert("Could not save the listing.");
+    alert("Success");
+  };
+
   return (
     <Screen style={styles.container}>
       <AppForm
@@ -70,7 +81,7 @@ export default function ListingEditScreen(props) {
           category: null,
           images: [],
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <FormImagePicker name="images" />

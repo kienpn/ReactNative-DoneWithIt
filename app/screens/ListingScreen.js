@@ -19,55 +19,16 @@ import Screen from "../components/Screen";
 import AppText from "../components/AppText";
 import AppButton from "../components/AppButton";
 import AppActivityIndicator from "../components/AppActivityIndicator";
-
-// const listings = [
-//   {
-//     id: 1,
-//     title: "Red jacket for sale",
-//     price: 100,
-//     image: require("../assets/jacket.jpg"),
-//   },
-//   {
-//     id: 2,
-//     title: "Couch in great condition",
-//     price: 1000,
-//     image: require("../assets/couch.jpg"),
-//   },
-//   {
-//     id: 3,
-//     title: "Ghế gấu của Min",
-//     price: 300,
-//     image: require("../assets/bear-chair.jpg"),
-//   },
-//   {
-//     id: 4,
-//     title: "White lamp",
-//     price: 20,
-//     image: require("../assets/background.jpg"),
-//   },
-// ];
+import useApi from "../hooks/useApi";
 
 export default function ListingScreen({ navigation }) {
-  const [listings, setListings] = useState([]);
-  const [hasError, setHasError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const { data: listings, hasError, isLoading, request: loadListings } = useApi(
+    listingsApi.getListings
+  );
 
   useEffect(() => {
     loadListings();
   }, []);
-
-  const loadListings = async () => {
-    setIsLoading(true);
-    const response = await listingsApi.getListings();
-    setIsLoading(false);
-
-    if (!response.ok) {
-      return setHasError(true);
-    }
-
-    setHasError(false);
-    setListings(response.data);
-  };
 
   return (
     <Screen style={styles.screen}>
@@ -78,14 +39,16 @@ export default function ListingScreen({ navigation }) {
         </>
       )}
 
-      {isLoading && (
+      <AppActivityIndicator visible={isLoading} />
+
+      {/* {isLoading && (
         <ActivityIndicator
           animating={isLoading}
           color={colors.primary}
           size="large"
         />
-      )}
-      {/* <AppActivityIndicator visible={true} /> */}
+      )} */}
+
       <FlatList
         data={listings}
         keyExtractor={(listing) => listing.id.toString()}
